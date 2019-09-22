@@ -30,8 +30,3 @@ jobs:
           npm test
         env:
           CI: true
-
-      - name: Deploy to Heroku
-        uses: actions/heroku@1.0.0
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
