@@ -2,11 +2,14 @@ import express from "express";
 import bodyParser from "body-parser";
 import { ApolloServer } from "apollo-server-express";
 
-import resolvers from "./resolvers";
-import typeDefs from "./schema";
+import eventResolver from "./resolvers/event_resolver";
+import { baseTypeDefintions, eventTypeDefinition } from "./graphql/schema";
+
+// load dotenv
+require('dotenv').config()
 
 // create the express server
-const app = express();
+const app = express(); 
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
@@ -20,8 +23,8 @@ app.get("/", (request, response) => {
 
 // setup apollo express middleware
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    typeDefs: [baseTypeDefintions, eventTypeDefinition],
+    resolvers: [eventResolver]
 });
 
 server.applyMiddleware({ app });
